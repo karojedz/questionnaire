@@ -9,6 +9,8 @@ import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -21,5 +23,9 @@ public class UserService {
         User user = userMapper.toUser(dto);
         User saved = userRepository.save(user);
         return questionnaireService.createQuestionnaire(saved);
+    }
+
+    public QuestionnaireDto getQuestionnaire(Long userId) {
+        return questionnaireService.getQuestionnaireByUserId(userId);
     }
 }

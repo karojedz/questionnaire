@@ -50,4 +50,19 @@ public class QuestionnaireService {
             throw new IllegalArgumentException("We cannot find a questionnaire you are trying to answer");
         }
     }
+
+    public QuestionnaireDto getQuestionnaireByUserId(Long userId) {
+        Optional<Questionnaire> possiblyQuestionnaire = questionnaireRepository.findByUserId(userId);
+        Questionnaire questionnaire;
+        if (possiblyQuestionnaire.isPresent()) questionnaire = possiblyQuestionnaire.get();
+        else throw new IllegalArgumentException("Couldn't find a user with given id");
+        Map<Long, String> randomQuestions = questionnaire.getRandomQuestions();
+        QuestionnaireDto questionnaireDto = new QuestionnaireDto();
+        for (long key: randomQuestions.keySet()) {
+            String question = questionService.getQuestionTextWithId(key);
+            String answer = randomQuestions.get(key);
+            questionnaireDto.addQuestionWithAnswer(question, answer);
+        }
+        return questionnaireDto;
+    }
 }

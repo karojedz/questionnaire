@@ -23,4 +23,12 @@ public class QuestionService {
         if (question.isPresent()) return question.get();
         else throw new IllegalArgumentException("There is a problem with getting a question out of repository.");
     }
+
+    public String getQuestionTextWithId(Long id) {
+        Optional<Question> possiblyQuestion = questionRepository.findById(id);
+        if (possiblyQuestion.isPresent()) {
+            Question question = possiblyQuestion.get();
+            return question.getActualQuestion();
+        } else return "Not found.";
+    }
 }
