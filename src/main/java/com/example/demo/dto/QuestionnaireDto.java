@@ -22,10 +22,12 @@ public class QuestionnaireDto {
     private Map<String, String> questionsWithAnswers = new HashMap<>();
 
     public String addQuestion(Question question) {
+        questionsWithAnswers = null;
         return randomQuestions.put(question.getId(), question.getActualQuestion());
     }
 
     public String addQuestionWithAnswer(String question, String answer) {
+        randomQuestions = null;
         return questionsWithAnswers.put(question, answer);
     }
 }
